@@ -19,6 +19,7 @@ What we'll see here
 1. Create and use a virtualenv.
 1. Install Python packages inside the virtualenv.
 1. Run a Django project.
+1. Commands to manage Passenger server
 
 
 Why DreamHost?
@@ -265,6 +266,25 @@ This script makes some assumptions:
 
 Put your project in this directory, restart Passenger and refresh your web
 browser.
+
+
+Commands to manage Passenger server
+-----------------------------------
+
+
+See if your passenger server is running:
+
+    $ pgrep -fl python3
+
+Restart your application:
+
+    $ touch ~/mygreatportal.com/tmp/restart.txt
+
+Kill the passenger server if the restart above doesn't work. It'll be restarted
+next time the site is accessed:
+
+    $ pkill python3
+
 
 
 Introduction
