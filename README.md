@@ -127,6 +127,9 @@ You should see a message
 We haven't done great things by now, but we are sure the domain is correctly
 configured and Python is running for us.
 
+**One important thing to note:** The current directory for your script always will
+be `~/mygreatproject.com/`.
+
 
 Install any Python version using pyenv
 --------------------------------------
