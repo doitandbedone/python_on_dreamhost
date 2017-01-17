@@ -9,6 +9,18 @@ Sources:
 - https://nokyotsu.com/qscripts/2015/05/deploy-a-python-web-application-on-dreamhost-with-pyenv.html (for pyenv - maybe not useful)
 
 
+What we'll see here
+-------------------
+
+1. Create a fully hosted domain to run Python applications.
+1. Enable login with ssh keys.
+1. Run a Python script through a browser.
+1. Install any Python version using pyenv.
+1. Create and use a virtualenv.
+1. Install Python packages inside the virtualenv.
+1. Run and configure a Django application.
+
+
 Why DreamHost?
 --------------
 
