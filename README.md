@@ -62,6 +62,8 @@ After creating your new fully hosted domain, you must enable ssh for this new
 created user in Users > Manage Users menu option to have shell access to your
 server.
 
+For the sake of this tutorial we'll consider creating "mygreatportal.com" with
+username "john".
 
 
 
