@@ -24,17 +24,27 @@ What we'll see here
 Why DreamHost?
 --------------
 
-1. It's affordable: unlimited disk space, unlimited bandwidth, unlimited and
-   independent domains or subdomains for only US$ 10.95/month.
+If there are nice alternatives these days like Digital Ocean, Heroku or even
+AWS, why use the old fashioned DreamHost shared plan?
 
-1. I don't need to manage email and firewall.
+Well, it's affordable: I have unlimited disk space, unlimited bandwidth,
+unlimited and independent domains or subdomains for only US$ 10.95/month.
 
-1. I can run cronjobs.
+It's simple: I don't need to manage email, firewall, O.S updates, etc.
 
-1. Each domain or subdomain has its own emails, ftp/ssh user, database, etc.
+I can run cronjobs.
 
-1. I have freedom to install my own Python version with virtualenv and Python
-   packages as well. For instance, Python 3 and Django.
+Each domain or subdomain has its own emails, ftp/ssh user, database, etc.
+
+I have freedom to install my own Python version with virtualenv and Python
+packages as well. For instance, Python 3 and Django (or Pyramid, or Flask).
+
+In practice, I pay once and I can host how many projects I need. Besides that I
+don't manage the machine. So, it's cheap and simple to me since I'm not a server
+admin guy.
+
+
+
 
 
 
