@@ -159,6 +159,42 @@ We need to activate our Python version:
     $ python -V
     Python 3.6.0
 
+Create and use a virtualenv
+---------------------------
+
+As we all know, it's recommended to use Python with virtualenv. That's what
+we'll do now:
+
+    $ cd ~
+    $ mkdir venv
+    $ python -m venv ~/venv
+    $ source ~/venv/bin/activate
+    (venv) $ which python
+    /home/john/venv/bin/python
+    (venv) $ python -V
+    Python 3.6.0
+
+As you can see we're using Python 3.6.0 from our virtualenv but we still need to
+change `passenger_wsgi.py` to work with our virtualenv:
+
+    import sys, os
+    
+    HOME = os.environ.get('HOME')
+    VENV = HOME + '/venv'
+    INTERP = VENV + '/bin/python3'
+    
+    if sys.executable != INTERP:
+        os.execl(INTERP, INTERP, *sys.argv)
+    
+    sys.path.insert(0, '{v}/lib/python3.6/site-packages'.format(v=VENV))
+    
+    def application(environ, start_response):
+        start_response('200 OK', [('Content-type', 'text/plain')])
+        message = 'Python {v} running'.format(v=sys.version)
+        return [bytes(message, encoding='utf-8')]
+
+Go to your web browser and see the result in http://mygreatportal.com
+
 
 Introduction
 ------------
