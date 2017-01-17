@@ -166,6 +166,7 @@ We need to activate our Python version:
     $ python -V
     Python 3.6.0
 
+
 Create and use a virtualenv
 ---------------------------
 
