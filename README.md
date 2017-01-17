@@ -20,7 +20,7 @@ What we'll see here
 1. Install Python packages inside the virtualenv.
 1. Run a Django project.
 1. Commands to manage Passenger server
-1. Run a Pyramid project
+1. Run a Pyramid application
 
 
 Why DreamHost?
@@ -290,11 +290,10 @@ next time the site is accessed:
     $ pkill python3
 
 
-Run a Pyramid project
----------------------
+Run a Pyramid application
+-------------------------
 
-
-`passenger_wsgi.py`:
+`passenger_wsgi.py` to run a Pyramid application:
 
     import sys, os
     
