@@ -127,6 +127,39 @@ We haven't done great things by now, but we are sure the domain is correctly
 configured and Python is running for us.
 
 
+Install any Python version using pyenv
+--------------------------------------
+
+We won't rely on the Python version delivered by DreamHost. Let's use [pyenv](https://github.com/yyuu/pyenv) to
+run a modern Python.
+
+Basically we must follow instructions in [Pyenv installation
+instructions](https://github.com/yyuu/pyenv#installation) and in [Pyenv: simple
+Python version
+management](https://help.dreamhost.com/hc/en-us/articles/216137637-Pyenv-simple-Python-version-management):
+
+    $ cd ~
+    $ mkdir ~/tmp
+    $ git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+    $ echo 'export TMPDIR="$HOME/tmp"' >> ~/.bash_profile
+    $ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
+    $ echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
+    $ echo 'eval "$(pyenv init -)"' >> ~/.bash_profile
+    $ pyenv install 3.6.0
+    $ pyenv versions
+    * system (set by /home/john/.pyenv/version)
+      3.6.0
+
+We need to activate our Python version:
+
+    $ pyenv global 3.6.0
+    $ pyenv versions
+      system
+    * 3.6.0 (set by /home/john/.pyenv/version)
+    $ python -V
+    Python 3.6.0
+
+
 Introduction
 ------------
 
