@@ -21,6 +21,7 @@ What we'll see here
 1. Run a Django project.
 1. Commands to manage Passenger server
 1. Run a Pyramid application
+1. Important directories and files
 
 
 Why DreamHost?
@@ -311,6 +312,26 @@ Run a Pyramid application
     
     from paste.deploy import loadapp
     application = loadapp('config:{s}/production.ini'.format(s=SRCDIR))
+
+
+Important directories and files
+-------------------------------
+
+- `~/mygreatportal.com`: It's where Passenger looks for the Python stub
+`passenger_wsgi.py` script to run your application.
+
+- `~/mygreatportal.com/tmp/restart.txt`: Touch this file to restart your application.
+
+- `~/mygreatportal.com/public`: Apache document root. Files here are accessible from
+  the outside world.
+
+- `~/tmp`: Temporary directory used by pyenv to build Python versions.
+
+- `~/.pyenv`: Pyenv root directory.
+
+- `~/venv`: Virtualenv root.
+
+- `~/src`: Your source code.
 
 
 Introduction
