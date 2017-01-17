@@ -193,7 +193,8 @@ change `passenger_wsgi.py` to work with our virtualenv:
         message = 'Python {v} running'.format(v=sys.version)
         return [bytes(message, encoding='utf-8')]
 
-Go to your web browser and see the result in http://mygreatportal.com
+Restart Passenger server, go to your web browser and see the result in
+http://mygreatportal.com
 
 
 Install Python packages inside the virtualenv
