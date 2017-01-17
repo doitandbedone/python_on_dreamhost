@@ -196,6 +196,40 @@ change `passenger_wsgi.py` to work with our virtualenv:
 Go to your web browser and see the result in http://mygreatportal.com
 
 
+Install Python packages inside the virtualenv
+---------------------------------------------
+
+We'are able to install packages to our virtualenv. Let's install Django:
+
+    $ cd ~
+    $ source ~/venv/bin/activate
+    (venv) $ pip install django
+    Collecting django
+    ...
+    Successfully installed django-1.10.5
+
+Let's modify `passenger_wsgi.py` again to use Django:
+
+    import sys, os
+    import django
+    
+    HOME = os.environ.get('HOME')
+    VENV = HOME + '/venv'
+    INTERP = VENV + '/bin/python3'
+    
+    if sys.executable != INTERP:
+        os.execl(INTERP, INTERP, *sys.argv)
+    
+    sys.path.insert(0, '{v}/lib/python3.6/site-packages'.format(v=VENV))
+    
+    def application(environ, start_response):
+        start_response('200 OK', [('Content-type', 'text/plain')])
+        message = 'Python {v} running Django {dv}'.format(v=sys.version, dv=django.__version__)
+        return [bytes(message, encoding='utf-8')]
+
+Restart Passenger server and refresh your browser window.
+
+
 Introduction
 ------------
 
