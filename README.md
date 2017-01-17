@@ -22,6 +22,7 @@ What we'll see here
 1. Commands to manage Passenger server
 1. Run a Pyramid application
 1. Important directories and files
+1. Notes about Django
 
 
 Why DreamHost?
@@ -337,19 +338,25 @@ Important directories and files
 Notes about Django
 ------------------
 
+I recommend you adapt your `settings.py` file to read some runtime configuration
+from envvars. Specially these ones:
+
+- DEBUG
+- ALLOWED_HOSTS
+- STATIC_ROOT
+
+These settings can vary from server to server. In production they have different
+values from the development environment.
+
 You must set these environment variables in your `~/.bash_profile`:
 
-    DOMAIN=escola.viniciusban.com
+    DOMAIN=$(cat ~/.domainname)
     DJANGO_ALLOWED_HOSTS=$DOMAIN
     DJANGO_STATIC_ROOT=$HOME/$DOMAIN/public/static/
     DJANGO_DEBUG=false
 
-Note: `DJANGO_STATIC_ROOT` must contain the same value of "Web directory" in
-your domain's control panel in DreamHost, with "/static/" appended. Example:
+Note: `DJANGO_STATIC_ROOT` must have the path to document root with "/static/" appended.
 
-Make your `settings.py` script understand these environment variables
-accordingly.
-
-Run `manage.py collectstatic`.
+Run `manage.py collectstatic` on every deploy.
 
 .end
