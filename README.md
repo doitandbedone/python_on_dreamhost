@@ -44,6 +44,23 @@ don't manage the machine. So, it's cheap and simple to me since I'm not a server
 admin guy.
 
 
+Creating your domain in DreamHost web panel
+-------------------------------------------
+
+The first thing you want to do is add your domain in Domains > Manage Domains
+menu option.
+
+There are 4 important fields to note when creating a new fully hosted domain or
+subdomain:
+
+1. Its name.
+1. The username.
+1. Web directory.
+1. You must activate Passenger to run Python scripts.
+
+After creating your new fully hosted domain, you must enable ssh for this new
+created user in Users > Manage Users menu option to have shell access to your
+server.
 
 
 
