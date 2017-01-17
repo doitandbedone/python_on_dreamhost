@@ -66,6 +66,22 @@ For the sake of this tutorial we'll consider creating "mygreatportal.com" with
 username "john".
 
 
+Enable login with ssh keys
+--------------------------
+
+Before anything else, setup login through ssh keys:
+
+Copy your local `.ssh/id_rsa.pub` to `.ssh/authorized_keys` of your server. You
+will be prompted for the password:
+
+    $ ssh john@mygreatportal.com "umask 077; mkdir .ssh"
+    $ cat ~/.ssh/id_rsa.pub | ssh john@mygreatportal.com "cat >> .ssh/authorized_keys"
+
+**Note:** You must replace `john` and `mygreatportal` with the appropriate username and domain of your account.
+
+Now you can login without password.
+
+
 
 Introduction
 ------------
