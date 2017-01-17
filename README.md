@@ -177,24 +177,6 @@ Commands to manage your Passenger server:
   - `$ pkill python3`: kill the passenger server if the restart above doesn''t work.
 
 
-
-Activate login with ssh keys
-----------------------------
-
-Before anything else, setup login through ssh keys:
-
-Copy your local `.ssh/id_rsa.pub` to `.ssh/authorized_keys` of your server. You will be prompted for the password:
-
-
-    $ ssh <user>@<server>.dreamhost.com "umask 077; mkdir .ssh"
-    $ cat $HOME/.ssh/id_rsa.pub | ssh <user>@<server>.dreamhost.com "cat >> .ssh/authorized_keys"
-
-**Note:** You must replace `<user>` and `<server>` with the appropriate username and servername of your account.
-
-Now you can login without password.
-
-
-
 Create the git repository
 -------------------------
 
