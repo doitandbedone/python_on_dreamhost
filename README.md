@@ -18,7 +18,7 @@ What we'll see here
 1. Install any Python version using pyenv.
 1. Create and use a virtualenv.
 1. Install Python packages inside the virtualenv.
-1. Run and configure a Django application.
+1. Run a Django project.
 
 
 Why DreamHost?
@@ -229,6 +229,42 @@ Let's modify `passenger_wsgi.py` again to use Django:
         return [bytes(message, encoding='utf-8')]
 
 Restart Passenger server and refresh your browser window.
+
+
+Run a Django project
+--------------------
+
+Our `passenger_wsgi.py` must be a little different. It won't use Django. It will
+simply start a project that uses Django. See it:
+
+    import sys, os
+    
+    HOME = os.environ.get('HOME')
+    PROJECTNAME = 'myproject'
+    SRCDIR = os.path.join(HOME, 'src', PROJECT_NAME)
+    VENV = os.path.join(HOME, 'venv')
+    INTERP = os.path.join(VENV, 'bin', 'python3')
+    
+    if sys.executable != INTERP:
+        os.execl(INTERP, INTERP, *sys.argv)
+    
+    sys.path.insert(0, os.path.join(VENV, "lib", "python3.6", "site-packages"))
+    sys.path.insert(0, SRCDIR)
+    
+    os.environ['DJANGO_SETTINGS_MODULE'] = PROJECTNAME + ".settings"
+    
+    from django.core.wsgi import get_wsgi_application
+    application = get_wsgi_application()
+
+
+This script makes some assumptions:
+
+1. There must exist a `~/src/myproject` directory with the project's source code
+   there.
+1. There must exist a `~/src/myproject/myproject/settings.py` file.
+
+Put your project in this directory, restart Passenger and refresh your web
+browser.
 
 
 Introduction
