@@ -20,6 +20,7 @@ What we'll see here
 1. Install Python packages inside the virtualenv.
 1. Run a Django project.
 1. Commands to manage Passenger server
+1. Run a Pyramid project
 
 
 Why DreamHost?
@@ -288,6 +289,29 @@ next time the site is accessed:
 
     $ pkill python3
 
+
+Run a Pyramid project
+---------------------
+
+
+`passenger_wsgi.py`:
+
+    import sys, os
+    
+    HOME = os.environ.get('HOME')
+    PROJECTNAME = 'myproject'
+    SRCDIR = os.path.join(HOME, 'src', PROJECT_NAME)
+    VENV = os.path.join(HOME, 'venv')
+    INTERP = os.path.join(VENV, 'bin', 'python3')
+    
+    if sys.executable != INTERP:
+        os.execl(INTERP, INTERP, *sys.argv)
+    
+    sys.path.insert(0, os.path.join(VENV, "lib", "python3.6", "site-packages"))
+    sys.path.insert(0, SRCDIR)
+    
+    from paste.deploy import loadapp
+    application = loadapp('config:{s}/production.ini'.format(s=SRCDIR))
 
 
 Introduction
