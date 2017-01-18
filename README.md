@@ -351,6 +351,11 @@ from envvars. Specially these ones:
 These settings can vary from server to server. In production they have different
 values from the development environment.
 
+I like to create the `~/.domainname` file with the domain name. So, my
+`~/.bash_profile` becomes generic enough:
+
+    $ echo 'mygreatportal.com' > ~/.domainname
+
 You must set these environment variables in your `~/.bash_profile`:
 
     DOMAIN=$(cat ~/.domainname)
