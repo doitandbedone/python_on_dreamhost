@@ -14,6 +14,7 @@ What we'll see here
 
 1. Create a fully hosted domain to run Python applications
 1. Enable login with ssh keys
+1. Prepare environment for improvements
 1. Run a "naked" Python script through your browser
 1. Install any Python version using pyenv
 1. Create and use a virtualenv
@@ -84,6 +85,28 @@ will be prompted for the password:
 **Note:** You must replace `john` and `mygreatportal.com` with the appropriate username and domain of your account.
 
 Now you can login without password.
+
+
+Prepare environment for improvements
+------------------------------------
+
+There are important information we should keep track from the beginning using
+environment variables:
+
+    $ echo ' ' >> ~/.bash_profile
+    $ echo '# general' >> ~/.bash_profile
+    $ echo 'DOMAIN_NAME=mygreatportal.com' >> ~/.bash_profile
+    $ echo 'DOMAIN_ROOT=~/$DOMAIN_NAME' >> ~/.bash_profile
+    $ echo 'DOCUMENT_ROOT=$DOMAIN_ROOT/public' >> ~/.bash_profile
+    $ exec $SHELL
+
+We'll use these variables extensively throughout the process of setting up the
+environment.
+
+The `~/.bash_profile` script is executed whenever you login to your account and
+every time you start the application server as well.
+
+Replace "mygreatportal.com" with your domain name.
 
 
 Run a "naked" Python script through your browser
