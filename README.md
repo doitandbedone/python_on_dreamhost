@@ -276,37 +276,45 @@ version.
 Run a Django project
 --------------------
 
-Our `passenger_wsgi.py` must be a little different. It won't use Django but it will
-start a stub script to launch a Django project. See it:
+`passenger_wsgi.py` will not return a message anymore. It will launch our Django
+project.
+
+We have to head Python to our project source code and make `passenger_wsgi.py`
+return our application object to be run by Passenger. This is our real Django
+project:
 
     import sys, os
     
-    HOME = os.environ.get('HOME')
+    DOMAIN_ROOT = os.environ.get('DOMAIN_ROOT')
     PROJECTNAME = 'myproject'
-    SRCDIR = os.path.join(HOME, 'src', PROJECT_NAME)
-    VENV = os.path.join(HOME, 'venv')
+    SRCDIR = os.path.join(DOMAIN_ROOT, PROJECTNAME)
+    VENV = os.path.join(DOMAIN_ROOT, '.virtualenv')
     INTERP = os.path.join(VENV, 'bin', 'python3')
     
     if sys.executable != INTERP:
         os.execl(INTERP, INTERP, *sys.argv)
     
-    sys.path.insert(0, os.path.join(VENV, "lib", "python3.6", "site-packages"))
+    sys.path.insert(0, os.path.join(VENV, 'lib', 'python3.6', 'site-packages'))
     sys.path.insert(0, SRCDIR)
     
-    # Launch django project
-    os.environ['DJANGO_SETTINGS_MODULE'] = PROJECTNAME + ".settings"
+    # Launch the django project
+    os.environ['DJANGO_SETTINGS_MODULE'] = PROJECTNAME + '.settings'
     from django.core.wsgi import get_wsgi_application
     application = get_wsgi_application()
 
+The script above makes some assumptions:
 
-This script makes some assumptions:
+1. There must exist a directory named `myproject` inside `$DOMAIN_ROOT` with the
+   project's source code.
+1. There must exist a `$DOMAIN_ROOT/myproject/myproject/settings.py` file.
 
-1. There must exist a `~/src/myproject` directory with the project's source code
-   there.
-1. There must exist a `~/src/myproject/myproject/settings.py` file.
+If you have any dependencies on Python packages, it's time to install them now,
+usually using pip. Remember to activate you virtualenv before.
 
-Put your project in this directory, restart Passenger and refresh your web
-browser.
+    $ source $DOMAIN_ROOT/.virtualenv/bin/activate
+    (.virtualenv) $ pip install -r requirements.txt
+
+Restart Passenger and refresh your web browser to see your project running.
 
 
 Run a Pyramid application
