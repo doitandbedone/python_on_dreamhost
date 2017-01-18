@@ -148,8 +148,8 @@ management](https://help.dreamhost.com/hc/en-us/articles/216137637-Pyenv-simple-
     $ cd ~
     $ mkdir ~/tmp
     $ git clone https://github.com/yyuu/pyenv.git ~/.pyenv
-    $ echo 'export TMPDIR="$HOME/tmp"' >> ~/.bash_profile
-    $ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
+    $ echo 'export TMPDIR=~/tmp' >> ~/.bash_profile
+    $ echo 'export PYENV_ROOT=~/.pyenv' >> ~/.bash_profile
     $ echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
     $ echo 'eval "$(pyenv init -)"' >> ~/.bash_profile
     $ pyenv install 3.6.0
