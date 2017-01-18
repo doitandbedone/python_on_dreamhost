@@ -90,13 +90,12 @@ Prepare environment for improvements
 ------------------------------------
 
 There are important information we should keep track from the beginning using
-environment variables:
+environment variables.
 
-    $ echo ' ' >> ~/.bash_profile
-    $ echo '# general' >> ~/.bash_profile
-    $ echo 'DOMAIN_NAME=mygreatportal.com' >> ~/.bash_profile
-    $ echo 'DOMAIN_ROOT=~/$DOMAIN_NAME' >> ~/.bash_profile
-    $ echo 'DOCUMENT_ROOT=$DOMAIN_ROOT/public' >> ~/.bash_profile
+See `bash_profile` file in this repository.
+
+To update your environment after you modify your `~/.bash_profile`, run:
+
     $ exec $SHELL
 
 We'll use these variables extensively throughout the process of setting up the
@@ -166,12 +165,9 @@ Run a "naked" Python script through your browser
 
 Our first script will just certify our Passenger is working properly.
 
-As you already know, it must be `passenger_wsgi.py` inside `$DOMAIN_ROOT`:
+As you already know, it must be `passenger_wsgi.py` inside `$DOMAIN_ROOT`.
 
-    # passenger_wsgi.py
-    def application(environ, start_response):
-        start_response('200 OK', [('Content-type', 'text/plain')])
-        return ['Python running for my project']
+See `passenger_wsgi_naked.py` in this repository.
 
 I call this script "naked" because it simply runs the default Python version
 available in DreamHost. At the time of this writing it was 2.7.3:
@@ -246,24 +242,9 @@ Let's install a package inside our virtualenv:
     ...
     Successfully installed django-1.10.5
 
-Now we need to modify `passenger_wsgi.py` to make it identify the virtualenv:
+Now we need to modify `passenger_wsgi.py` to make it identify the virtualenv.
 
-    import sys, os
-    import django
-    
-    DOMAIN_ROOT = os.environ.get('DOMAIN_ROOT')
-    VENV = os.path.join(DOMAIN_ROOT, '.virtualenv')
-    INTERP = os.path.join(VENV, 'bin', 'python3')
-    
-    if sys.executable != INTERP:
-        os.execl(INTERP, INTERP, *sys.argv)
-    
-    sys.path.insert(0, os.path.join(VENV, 'lib', 'python3.6', 'site-packages'))
-    
-    def application(environ, start_response):
-        start_response('200 OK', [('Content-type', 'text/plain')])
-        message = 'Python {v} running Django {dv}.'.format(v=sys.version, dv=django.__version__)
-        return [bytes(message, encoding='utf-8')]
+See `passenger_wsgi_virtualenv.py` in this repository.
 
 Restart Passenger server and refresh your browser window.
 
@@ -280,26 +261,9 @@ project.
 
 We have to head Python to our project source code and make `passenger_wsgi.py`
 return our application object to be run by Passenger. This is our real Django
-project:
+project.
 
-    import sys, os
-    
-    DOMAIN_ROOT = os.environ.get('DOMAIN_ROOT')
-    PROJECTNAME = 'myproject'
-    SRCDIR = os.path.join(DOMAIN_ROOT, PROJECTNAME)
-    VENV = os.path.join(DOMAIN_ROOT, '.virtualenv')
-    INTERP = os.path.join(VENV, 'bin', 'python3')
-    
-    if sys.executable != INTERP:
-        os.execl(INTERP, INTERP, *sys.argv)
-    
-    sys.path.insert(0, os.path.join(VENV, 'lib', 'python3.6', 'site-packages'))
-    sys.path.insert(0, SRCDIR)
-    
-    # Launch the django project
-    os.environ['DJANGO_SETTINGS_MODULE'] = PROJECTNAME + '.settings'
-    from django.core.wsgi import get_wsgi_application
-    application = get_wsgi_application()
+See `passenger_wsgi_django.py` in this repository.
 
 The script above makes some assumptions:
 
@@ -320,25 +284,9 @@ Run a Pyramid application
 -------------------------
 
 The version of `passenger_wsgi.py` to run a Pyramid application is only slightly
-different from our previous version for Django:
+different from our previous version for Django.
 
-    import sys, os
-    
-    DOMAIN_ROOT = os.environ.get('DOMAIN_ROOT')
-    PROJECTNAME = 'myproject'
-    SRCDIR = os.path.join(DOMAIN_ROOT, PROJECTNAME)
-    VENV = os.path.join(DOMAIN_ROOT, '.virtualenv')
-    INTERP = os.path.join(VENV, 'bin', 'python3')
-    
-    if sys.executable != INTERP:
-        os.execl(INTERP, INTERP, *sys.argv)
-    
-    sys.path.insert(0, os.path.join(VENV, 'lib', 'python3.6', 'site-packages'))
-    sys.path.insert(0, SRCDIR)
-    
-    # Launch the pyramid application
-    from paste.deploy import loadapp
-    application = loadapp('config:{s}/production.ini'.format(s=SRCDIR))
+See `passenger_wsgi_pyramid.py` in this repository.
 
 
 Notes about Django
