@@ -12,13 +12,13 @@ Sources:
 What we'll see here
 -------------------
 
-1. Create a fully hosted domain to run Python applications.
-1. Enable login with ssh keys.
-1. Run a "naked" Python script through your browser.
-1. Install any Python version using pyenv.
-1. Create and use a virtualenv.
-1. Install Python packages inside the virtualenv.
-1. Run a Django project.
+1. Create a fully hosted domain to run Python applications
+1. Enable login with ssh keys
+1. Run a "naked" Python script through your browser
+1. Install any Python version using pyenv
+1. Create and use a virtualenv
+1. Install Python packages inside the virtualenv
+1. Run a Django project
 1. Commands to manage Passenger server
 1. Run a Pyramid application
 1. Important directories and files
@@ -57,10 +57,10 @@ menu option.
 There are 4 important fields to note when creating a new fully hosted domain or
 subdomain:
 
-1. Its name.
-1. The username.
-1. Web directory.
-1. You must activate Passenger to run Python scripts.
+1. Its name
+1. The username
+1. Web directory
+1. You must activate Passenger to run Python scripts
 
 After creating your new fully hosted domain, you must enable ssh for this new
 created user in Users > Manage Users menu option to have shell access to your
@@ -283,7 +283,6 @@ browser.
 
 Commands to manage Passenger server
 -----------------------------------
-
 
 See if your passenger server is running:
 
