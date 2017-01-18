@@ -137,6 +137,9 @@ So, you always need a file called `passenger_wsgi.py` inside your `$DOMAIN_ROOT`
 directory. This is the entry point to your project. Or, in other words,
 `passenger_wsgi.py` will call your project.
 
+**Don't forget:** The current directory for your script will always
+be `$DOMAIN_ROOT`.
+
 
 Commands to manage Passenger server
 -----------------------------------
@@ -201,8 +204,6 @@ You should see the message below:
 We haven't done great things by now, but we are sure the domain is correctly
 configured and Python is running for us.
 
-**One important thing to note:** The current directory for your script always will
-be `~/mygreatproject.com/`.
 
 
 Install any Python version using pyenv
