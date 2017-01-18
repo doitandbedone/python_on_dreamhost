@@ -81,7 +81,7 @@ will be prompted for the password:
     $ ssh john@mygreatportal.com "umask 077; mkdir .ssh"
     $ cat ~/.ssh/id_rsa.pub | ssh john@mygreatportal.com "cat >> .ssh/authorized_keys"
 
-**Note:** You must replace `john` and `mygreatportal` with the appropriate username and domain of your account.
+**Note:** You must replace `john` and `mygreatportal.com` with the appropriate username and domain of your account.
 
 Now you can login without password.
 
