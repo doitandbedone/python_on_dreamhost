@@ -232,13 +232,13 @@ Create and use a virtualenv
 As we all know, it's recommended to use Python with virtualenv. That's what
 we'll do now:
 
-    $ cd ~
-    $ mkdir venv
-    $ python -m venv ~/venv
-    $ source ~/venv/bin/activate
-    (venv) $ which python
-    /home/john/venv/bin/python
-    (venv) $ python -V
+    $ cd $DOMAIN_ROOT
+    $ mkdir .virtualenv
+    $ python -m venv $DOMAIN_ROOT/.virtualenv
+    $ source $DOMAIN_ROOT/.virtualenv/bin/activate
+    (.virtualenv) $ which python
+    /home/john/mygreatportal.com/.virtualenv/bin/python
+    (.virtualenv) $ python -V
     Python 3.6.0
 
 As you can see we're using Python 3.6.0 from our virtualenv but we still need to
@@ -246,22 +246,21 @@ change `passenger_wsgi.py` to work with our virtualenv:
 
     import sys, os
     
-    HOME = os.environ.get('HOME')
-    VENV = HOME + '/venv'
-    INTERP = VENV + '/bin/python3'
+    DOMAIN_ROOT = os.environ.get('DOMAIN_ROOT')
+    VENV = os.path.join(DOMAIN_ROOT, '.virtualenv'
+    INTERP = os.path.join(VENV, 'bin', 'python3')
     
     if sys.executable != INTERP:
         os.execl(INTERP, INTERP, *sys.argv)
     
-    sys.path.insert(0, '{v}/lib/python3.6/site-packages'.format(v=VENV))
+    sys.path.insert(0, os.path.join(VENV, 'lib', 'python3.6', 'site-packages'))
     
     def application(environ, start_response):
         start_response('200 OK', [('Content-type', 'text/plain')])
         message = 'Python {v} running'.format(v=sys.version)
         return [bytes(message, encoding='utf-8')]
 
-Restart Passenger server, go to your web browser and see the result in
-http://mygreatportal.com
+Restart Passenger server and refresh your browser window.
 
 
 Install Python packages inside the virtualenv
