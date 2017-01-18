@@ -106,7 +106,16 @@ environment.
 The `~/.bash_profile` script is executed whenever you login to your account and
 every time you start the application server as well.
 
-Replace "mygreatportal.com" with your domain name.
+`$DOMAIN_NAME` will be used where you need to know it, without hardcoding. If
+you use Django you'll need it in `ALLOWED_HOSTS` setting. Replace
+"mygreatportal.com" with your domain name.
+
+`$DOMAIN_ROOT` is where everything about our projet will lives, e.g, source
+code, sqlite database, config files, etc.
+
+`$DOCUMENT_ROOT` is served directly by Passenger. It is used to keep static
+files, e.g, images, css files, js scripts and so on. **Source code and
+configuration files must not be here!**
 
 
 Run a "naked" Python script through your browser
