@@ -73,7 +73,7 @@ username "john".
 Enable login with ssh keys
 --------------------------
 
-Before anything else, setup login through ssh keys:
+Before anything else, setup login through ssh keys.
 
 Copy your local `.ssh/id_rsa.pub` to `.ssh/authorized_keys` of your server. You
 will be prompted for the password:
@@ -123,7 +123,7 @@ environment. The server doesn't look for updates in source code automatically.
 
 Now, go to your web browser and head to http://mygreatportal.com
 
-You should see a message
+You should see the message below:
 
 > Python running for mygreatproject.com
 
@@ -242,8 +242,8 @@ Restart Passenger server and refresh your browser window.
 Run a Django project
 --------------------
 
-Our `passenger_wsgi.py` must be a little different. It won't use Django. It will
-simply start a project that uses Django. See it:
+Our `passenger_wsgi.py` must be a little different. It won't use Django but it will
+start a stub script to launch a Django project. See it:
 
     import sys, os
     
@@ -259,8 +259,8 @@ simply start a project that uses Django. See it:
     sys.path.insert(0, os.path.join(VENV, "lib", "python3.6", "site-packages"))
     sys.path.insert(0, SRCDIR)
     
+    # Launch django project
     os.environ['DJANGO_SETTINGS_MODULE'] = PROJECTNAME + ".settings"
-    
     from django.core.wsgi import get_wsgi_application
     application = get_wsgi_application()
 
@@ -296,7 +296,8 @@ next time the site is accessed:
 Run a Pyramid application
 -------------------------
 
-`passenger_wsgi.py` to run a Pyramid application:
+The version of `passenger_wsgi.py` to run a Pyramid application is only slightly
+different from our previous version for Django:
 
     import sys, os
     
@@ -312,6 +313,7 @@ Run a Pyramid application
     sys.path.insert(0, os.path.join(VENV, "lib", "python3.6", "site-packages"))
     sys.path.insert(0, SRCDIR)
     
+    # Launch pyramid application
     from paste.deploy import loadapp
     application = loadapp('config:{s}/production.ini'.format(s=SRCDIR))
 
@@ -353,11 +355,14 @@ You must set these environment variables in your `~/.bash_profile`:
 
     DOMAIN=$(cat ~/.domainname)
     DJANGO_ALLOWED_HOSTS=$DOMAIN
-    DJANGO_STATIC_ROOT=$HOME/$DOMAIN/public/static/
+    DJANGO_STATIC_ROOT=~/$DOMAIN/public/static/ # document root + "/static/"
     DJANGO_DEBUG=false
 
-Note: `DJANGO_STATIC_ROOT` must have the path to document root with "/static/" appended.
+Static files must be filled on each deploy with:
 
-Run `manage.py collectstatic` on every deploy.
+    (venv) $ python manage.py collectstatic
+
+Run this from your project root directory, i.e, the same directory where
+`manage.py` file is located.
 
 .end
