@@ -325,19 +325,19 @@ different from our previous version for Django:
 
     import sys, os
     
-    HOME = os.environ.get('HOME')
+    DOMAIN_ROOT = os.environ.get('DOMAIN_ROOT')
     PROJECTNAME = 'myproject'
-    SRCDIR = os.path.join(HOME, 'src', PROJECT_NAME)
-    VENV = os.path.join(HOME, 'venv')
+    SRCDIR = os.path.join(DOMAIN_ROOT, PROJECTNAME)
+    VENV = os.path.join(DOMAIN_ROOT, '.virtualenv')
     INTERP = os.path.join(VENV, 'bin', 'python3')
     
     if sys.executable != INTERP:
         os.execl(INTERP, INTERP, *sys.argv)
     
-    sys.path.insert(0, os.path.join(VENV, "lib", "python3.6", "site-packages"))
+    sys.path.insert(0, os.path.join(VENV, 'lib', 'python3.6', 'site-packages'))
     sys.path.insert(0, SRCDIR)
     
-    # Launch pyramid application
+    # Launch the pyramid application
     from paste.deploy import loadapp
     application = loadapp('config:{s}/production.ini'.format(s=SRCDIR))
 
