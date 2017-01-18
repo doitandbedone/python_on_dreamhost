@@ -20,7 +20,6 @@ What we'll see here
 1. Run a "naked" Python script through your browser
 1. Install any Python version using pyenv
 1. Create and use a virtualenv
-1. Install Python packages inside the virtualenv
 1. Run a Django project
 1. Run a Pyramid application
 1. Important directories and files
@@ -241,13 +240,20 @@ we'll do now:
     (.virtualenv) $ python -V
     Python 3.6.0
 
-As you can see we're using Python 3.6.0 from our virtualenv but we still need to
-change `passenger_wsgi.py` to work with our virtualenv:
+Let's install a package inside our virtualenv:
+
+    (.virtualenv) $ pip install django
+    Collecting django
+    ...
+    Successfully installed django-1.10.5
+
+Now we need to modify `passenger_wsgi.py` to make it identify the virtualenv:
 
     import sys, os
+    import django
     
     DOMAIN_ROOT = os.environ.get('DOMAIN_ROOT')
-    VENV = os.path.join(DOMAIN_ROOT, '.virtualenv'
+    VENV = os.path.join(DOMAIN_ROOT, '.virtualenv')
     INTERP = os.path.join(VENV, 'bin', 'python3')
     
     if sys.executable != INTERP:
@@ -257,44 +263,14 @@ change `passenger_wsgi.py` to work with our virtualenv:
     
     def application(environ, start_response):
         start_response('200 OK', [('Content-type', 'text/plain')])
-        message = 'Python {v} running'.format(v=sys.version)
+        message = 'Python {v} running Django {dv}.'.format(v=sys.version, dv=django.__version__)
         return [bytes(message, encoding='utf-8')]
 
 Restart Passenger server and refresh your browser window.
 
-
-Install Python packages inside the virtualenv
----------------------------------------------
-
-We'are able to install packages to our virtualenv. Let's install Django:
-
-    $ cd ~
-    $ source ~/venv/bin/activate
-    (venv) $ pip install django
-    Collecting django
-    ...
-    Successfully installed django-1.10.5
-
-Let's modify `passenger_wsgi.py` again to use Django:
-
-    import sys, os
-    import django
-    
-    HOME = os.environ.get('HOME')
-    VENV = HOME + '/venv'
-    INTERP = VENV + '/bin/python3'
-    
-    if sys.executable != INTERP:
-        os.execl(INTERP, INTERP, *sys.argv)
-    
-    sys.path.insert(0, '{v}/lib/python3.6/site-packages'.format(v=VENV))
-    
-    def application(environ, start_response):
-        start_response('200 OK', [('Content-type', 'text/plain')])
-        message = 'Python {v} running Django {dv}'.format(v=sys.version, dv=django.__version__)
-        return [bytes(message, encoding='utf-8')]
-
-Restart Passenger server and refresh your browser window.
+This example just checked if the virtualenv is being identified by Passenger.
+Note we didn't run a Django project yet. We just imported django and showed its
+version.
 
 
 Run a Django project
