@@ -352,14 +352,8 @@ configuration from envvars. Specially these ones:
 - STATIC_ROOT
 
 These settings can vary from server to server. In production they have different
-values from the development environment.
-
-I like to create the `~/.domainname` file with the domain name. So, my
-`~/.bash_profile` becomes generic enough:
-
-    $ echo 'mygreatportal.com' > ~/.domainname
-
-You must set these environment variables in your `~/.bash_profile`:
+values from the development environment and you must set them in
+`~/.bash_profile`:
 
     # django
     DJANGO_DEBUG=false
@@ -368,9 +362,10 @@ You must set these environment variables in your `~/.bash_profile`:
 
 Static files must be filled on each deploy with:
 
-    (venv) $ python manage.py collectstatic
+    $ source $DOMAIN_ROOT/.virtualenv/bin/activate
+    (.virtualenv) $ cd $DOMAIN_ROOT/myproject
+    (.virtualenv) $ python manage.py collectstatic
 
-Run this from your project root directory, i.e, the same directory where
-`manage.py` file is located.
+Run `collectstatic` from the same directory where `manage.py` file lives.
 
 .end
