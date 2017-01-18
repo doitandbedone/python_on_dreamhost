@@ -365,8 +365,9 @@ I like to create the `~/.domainname` file with the domain name. So, my
 You must set these environment variables in your `~/.bash_profile`:
 
     DOMAIN=$(cat ~/.domainname)
+    DOCUMENT_ROOT=$DOMAIN/public
     DJANGO_ALLOWED_HOSTS=$DOMAIN
-    DJANGO_STATIC_ROOT=~/$DOMAIN/public/static/ # document root + "/static/"
+    DJANGO_STATIC_ROOT=$DOCUMENT_ROOT/static/
     DJANGO_DEBUG=false
 
 Static files must be filled on each deploy with:
