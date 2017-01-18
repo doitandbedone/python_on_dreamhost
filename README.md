@@ -121,15 +121,6 @@ configuration files must not be here!**
 Run a "naked" Python script through your browser
 ------------------------------------------------
 
-When you added your domain, there was a field called "Web directory". It is the
-path to the Apache document root: `/home/john/mygreatportal.com/public/`.
-
-For the sake of convenience, let's set it in our `~/.bash_profile` and activate
-it:
-
-    $ echo 'DOCUMENT_ROOT=~/mygreatportal.com/public' >> ~/.bash_profile
-    $ exec $SHELL
-
 Passenger runs a Python script located in the directory above the document root.
 And this script **must** be named `passenger_wsgi.py`.
 
