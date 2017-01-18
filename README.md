@@ -1,13 +1,6 @@
 Running Python 3 applications on DreamHost shared hosting
 =========================================================
 
-Sources:
-
-- http://wiki.dreamhost.com/Django
-- http://wiki.dreamhost.com/Passenger
-- https://help.dreamhost.com/hc/en-us/articles/216137637-Pyenv-simple-Python-version-management (for pyenv)
-- https://nokyotsu.com/qscripts/2015/05/deploy-a-python-web-application-on-dreamhost-with-pyenv.html (for pyenv - maybe not useful)
-
 
 What we'll see here
 -------------------
@@ -315,5 +308,15 @@ Static files must be filled on each deploy with:
     (.virtualenv) $ python manage.py collectstatic
 
 Run `collectstatic` from the same directory where `manage.py` file lives.
+
+
+--------------------------------------------------
+
+Sources:
+
+- http://wiki.dreamhost.com/Django
+- http://wiki.dreamhost.com/Passenger
+- https://help.dreamhost.com/hc/en-us/articles/216137637-Pyenv-simple-Python-version-management
+- http://blog.mattwoodward.com/2016/06/installing-python-3-and-django-on.html
 
 .end
