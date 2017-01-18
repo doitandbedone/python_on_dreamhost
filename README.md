@@ -16,12 +16,12 @@ What we'll see here
 1. Enable login with ssh keys
 1. Prepare environment for improvements
 1. Understand how Python is executed in DreamHost
+1. Commands to manage Passenger server
 1. Run a "naked" Python script through your browser
 1. Install any Python version using pyenv
 1. Create and use a virtualenv
 1. Install Python packages inside the virtualenv
 1. Run a Django project
-1. Commands to manage Passenger server
 1. Run a Pyramid application
 1. Important directories and files
 1. Notes about Django
@@ -136,6 +136,28 @@ The overall chain is:
 So, you always need a file called `passenger_wsgi.py` inside your `$DOMAIN_ROOT`
 directory. This is the entry point to your project. Or, in other words,
 `passenger_wsgi.py` will call your project.
+
+
+Commands to manage Passenger server
+-----------------------------------
+
+As any application server, Passenger runs in a separate process and can be
+started, killed and restarted.
+
+To check if your Passenger server is running:
+
+    $ pgrep -fl python3
+
+To kill the Passenger server:
+    $ pkill python3
+
+Passenger is restarted the next time the site is accessed and it isn't running
+yet.
+
+To restart Passenger any time you make a new deploy or change some configuration
+file read at the startup process:
+
+    $ touch $DOMAIN_ROOT/tmp/restart.txt
 
 
 Run a "naked" Python script through your browser
@@ -322,23 +344,6 @@ This script makes some assumptions:
 
 Put your project in this directory, restart Passenger and refresh your web
 browser.
-
-
-Commands to manage Passenger server
------------------------------------
-
-See if your passenger server is running:
-
-    $ pgrep -fl python3
-
-Restart your application:
-
-    $ touch ~/mygreatportal.com/tmp/restart.txt
-
-Kill the passenger server if the restart above doesn't work. It'll be restarted
-next time the site is accessed:
-
-    $ pkill python3
 
 
 Run a Pyramid application
