@@ -166,15 +166,14 @@ file read at the startup process:
 Run a "naked" Python script through your browser
 ------------------------------------------------
 
-Passenger runs a Python script located in the directory above the document root.
-And this script **must** be named `passenger_wsgi.py`.
+Our first script will just certify our Passenger is working properly.
 
-So, let's save our first script in it:
+As you already know, it must be `passenger_wsgi.py` inside `$DOMAIN_ROOT`:
 
-    # /home/john/mygreatportal.com/passenger_wsgi.py
+    # passenger_wsgi.py
     def application(environ, start_response):
         start_response('200 OK', [('Content-type', 'text/plain')])
-        return ['Python running for mygreatproject.com']
+        return ['Python running for my project']
 
 I call this script "naked" because it simply runs the default Python version
 available in DreamHost. At the time of this writing it was 2.7.3:
@@ -182,28 +181,16 @@ available in DreamHost. At the time of this writing it was 2.7.3:
     $ python -V
     Python 2.7.3
 
-You must restart the Passenger server, touching a specific file. First,
-we'll create the directory to host it:
-
-    $ mkdir ~/mygreatportal.com/tmp
-
-Now, start the Passenger server:
-
-    $ touch ~/mygreatportal.com/tmp/restart.txt
-
-Each time you change the source code you'll want to restart the Passenger
-server simply touching `~/mygreatportal.com/tmp/restart.txt`. It's a production
-environment. The server doesn't look for updates in source code automatically.
-
 Now, go to your web browser and head to http://mygreatportal.com
+
+Remember to use your own domain name, instead of mygreatportal.com
 
 You should see the message below:
 
-> Python running for mygreatproject.com
+> Python running for my project
 
 We haven't done great things by now, but we are sure the domain is correctly
-configured and Python is running for us.
-
+configured and Python is running.
 
 
 Install any Python version using pyenv
