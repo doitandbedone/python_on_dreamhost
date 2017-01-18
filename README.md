@@ -347,8 +347,8 @@ Important directories and files
 Notes about Django
 ------------------
 
-I recommend you adapt your `settings.py` file to read some runtime configuration
-from envvars. Specially these ones:
+I recommend you to adapt your `settings.py` script to read some runtime
+configuration from envvars. Specially these ones:
 
 - DEBUG
 - ALLOWED_HOSTS
