@@ -15,6 +15,7 @@ What we'll see here
 1. Create a fully hosted domain to run Python applications
 1. Enable login with ssh keys
 1. Prepare environment for improvements
+1. Understand how Python is executed in DreamHost
 1. Run a "naked" Python script through your browser
 1. Install any Python version using pyenv
 1. Create and use a virtualenv
@@ -116,6 +117,25 @@ code, sqlite database, config files, etc.
 `$DOCUMENT_ROOT` is served directly by Passenger. It is used to keep static
 files, e.g, images, css files, js scripts and so on. **Source code and
 configuration files must not be here!**
+
+
+Understand how Python is executed in DreamHost
+----------------------------------------------
+
+DreamHost uses an application server called Passenger to run Ruby, node.js and
+Python scripts.
+
+The overall chain is:
+
+1. Apache receives an incoming request to a domain that has Passenger active.
+1. If the URI exists as a file in `$DOMAIN_ROOT/public/` directory as a file,
+   this file is served.
+1. If the file doesn't exist, Apache forwards the request to Passenger.
+1. Passenger executes the file `$DOMAIN_ROOT/passenger_wsgi.py`.
+
+So, you always need a file called `passenger_wsgi.py` inside your `$DOMAIN_ROOT`
+directory. This is the entry point to your project. Or, in other words,
+`passenger_wsgi.py` will call your project.
 
 
 Run a "naked" Python script through your browser
