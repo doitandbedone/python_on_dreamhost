@@ -12,6 +12,9 @@ if sys.executable != INTERP:
 sys.path.insert(0, os.path.join(VENV, 'lib', 'python3.6', 'site-packages'))
 sys.path.insert(0, SRCDIR)
 
+# pwd now is the project root directory
+os.chdir(SRCDIR)
+
 # Launch the django project
 os.environ['DJANGO_SETTINGS_MODULE'] = PROJECTNAME + '.settings'
 from django.core.wsgi import get_wsgi_application

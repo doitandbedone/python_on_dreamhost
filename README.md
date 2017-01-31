@@ -264,6 +264,10 @@ The script above makes some assumptions:
    project's source code.
 1. There must exist a `$DOMAIN_ROOT/myproject/myproject/settings.py` file.
 
+**Important:** the `$DOMAIN_ROOT/myproject` must be the current directory
+because by default Django looks for templates inside this directory. That script
+takes care of it.
+
 If you have any dependencies on Python packages, it's time to install them now,
 usually using pip. Remember to activate you virtualenv before.
 
